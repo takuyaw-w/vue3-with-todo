@@ -1,28 +1,40 @@
 <script setup lang="ts">
 import { todoStoreKey } from '@/store/todoStore'
-import { inject, reactive } from 'vue'
+import { inject } from 'vue'
 import { useRouter } from 'vue-router'
+import { useField, useForm } from 'vee-validate'
+import { toTypedSchema } from '@vee-validate/zod'
+import * as z from 'zod'
+
+const router = useRouter()
+const validationSchema = toTypedSchema(
+  z.object({
+    title: z.string().nonempty({ message: '必須入力です。' }),
+    description: z.string().nonempty({ message: '必須入力です。' })
+  })
+)
+const { handleSubmit, errors } = useForm({
+  validationSchema,
+  initialValues: {
+    title: '',
+    description: ''
+  }
+})
+const { value: title } = useField<string>('title')
+const { value: description } = useField<string>('description')
 
 const todoStore = inject(todoStoreKey)
 if (todoStore === undefined) {
   throw new Error('todoStoreKey is not provided')
 }
-const router = useRouter()
-const newTodo = reactive({
-  title: '',
-  description: ''
-})
 
-function addTodo() {
-  if (todoStore === undefined) {
-    throw new Error('todoStoreKey is not provided')
-  }
+const onSubmit = handleSubmit((values) => {
   todoStore.addTodo({
-    title: newTodo.title,
-    description: newTodo.description
+    title: values.title,
+    description: values.description
   })
   router.push('/')
-}
+})
 </script>
 
 <template>
@@ -33,14 +45,16 @@ function addTodo() {
       </li>
     </ul>
   </nav>
-  <form @submit.prevent="addTodo">
+  <form @submit.prevent="onSubmit">
     <div class="input-box">
       <label for="title">Title</label>
-      <input type="text" id="title" v-model="newTodo.title" />
+      <input type="text" id="title" v-model="title" />
+      <span class="error" v-if="errors.title">{{ errors.title }}</span>
     </div>
     <div class="input-box">
       <label for="description">Description</label>
-      <textarea id="description" v-model="newTodo.description"></textarea>
+      <textarea id="description" v-model="description"></textarea>
+      <span class="error" v-if="errors.description">{{ errors.description }}</span>
     </div>
     <div class="action">
       <button type="submit">Todoを追加する</button>
@@ -71,9 +85,7 @@ textarea {
 }
 .input-box {
   display: flex;
-}
-.input-box label {
-  flex-basis: 150px;
+  flex-direction: column;
 }
 .input-box input,
 .input-box textarea {
@@ -92,5 +104,8 @@ textarea {
   width: 100%;
   background-color: indigo;
   color: #fff;
+}
+.error {
+  color: red;
 }
 </style>
