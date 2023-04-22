@@ -1,6 +1,6 @@
 import type { DeepReadonly } from 'vue'
 
-export type Status = 'todo' | 'doing' | 'done'
+export type Status = 'Todo' | 'Doing' | 'Done'
 
 export type Todo = {
   id: number

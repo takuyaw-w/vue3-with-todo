@@ -6,6 +6,13 @@ const todoStore = inject(todoStoreKey)
 if (!todoStore) {
   throw new Error('todoStoreKey is not provided')
 }
+
+/**
+ * 頭文字を小文字に変換する
+ */
+const toLowerFirst = (str: string) => {
+  return str.charAt(0).toLowerCase() + str.slice(1)
+}
 </script>
 
 <template>
@@ -21,7 +28,7 @@ if (!todoStore) {
       <div class="todo_item">
         <div class="todo_title">
           <h2>{{ todo.title }}</h2>
-          <span :class="`todo_status ${todo.status}`">{{ todo.status }}</span>
+          <span :class="`todo_status ${toLowerFirst(todo.status)}`">{{ todo.status }}</span>
         </div>
         <div class="todo_content">
           <p>{{ todo.description }}</p>

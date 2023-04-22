@@ -38,9 +38,9 @@ const todo = reactive({
     <div class="input-box">
       <label for="status">status</label>
       <select v-model="todo.status">
-        <option value="todo">todo</option>
-        <option value="doing">doing</option>
-        <option value="done">done</option>
+        <option value="Todo">Todo</option>
+        <option value="Doing">Doing</option>
+        <option value="Done">Done</option>
       </select>
     </div>
     <div class="action">

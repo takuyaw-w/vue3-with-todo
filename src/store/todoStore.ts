@@ -7,19 +7,19 @@ const todoState = reactive<TodoState>({
       id: 1,
       title: 'Todo 1',
       description: 'Todo 1 description',
-      status: 'todo'
+      status: 'Todo'
     },
     {
       id: 2,
       title: 'Todo 2',
       description: 'Todo 2 description',
-      status: 'doing'
+      status: 'Doing'
     },
     {
       id: 3,
       title: 'Todo 3',
       description: 'Todo 3 description',
-      status: 'done'
+      status: 'Done'
     }
   ]
 })
