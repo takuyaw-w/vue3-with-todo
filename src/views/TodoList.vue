@@ -61,6 +61,12 @@ nav > ul {
   margin-bottom: 10px;
   border-bottom: #ccc 1px solid;
 }
+.todo_title > h2 {
+  max-width: 800px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .todo_status {
   background-color: #ccc;
   padding: 0.4rem 0.6rem;
@@ -78,6 +84,7 @@ nav > ul {
 .todo_content {
   padding: 0 1rem;
   margin-bottom: 10px;
+  white-space: pre-wrap;
 }
 .todo_action {
   padding: 0.2rem 1rem;
