@@ -53,7 +53,7 @@ const onSubmit = handleSubmit((values) => {
     </div>
     <div class="input-box">
       <label for="description">Description</label>
-      <textarea id="description" v-model="description"></textarea>
+      <textarea id="description" v-model="description" rows="5"></textarea>
       <span class="error" v-if="errors.description">{{ errors.description }}</span>
     </div>
     <div class="action">
@@ -76,6 +76,7 @@ input,
 button,
 textarea {
   border: 1px solid #ccc;
+  border-radius: 5px;
 }
 input {
   padding: 5px;
