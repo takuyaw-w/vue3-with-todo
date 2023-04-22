@@ -16,7 +16,7 @@ if (!todoStore) {
       </li>
     </ul>
   </nav>
-  <ul>
+  <ul v-if="todoStore.state.todos.length !== 0">
     <li class="todos" v-for="todo in todoStore.state.todos" :key="todo.id">
       <div class="todo_item">
         <div class="todo_title">
@@ -32,6 +32,9 @@ if (!todoStore) {
       </div>
     </li>
   </ul>
+  <div v-else>
+    <p>TODOはありません</p>
+  </div>
 </template>
 
 <style scoped>
@@ -71,6 +74,8 @@ nav > ul {
   background-color: #ccc;
   padding: 0.4rem 0.6rem;
   border-radius: 5px;
+  min-width: 80px;
+  text-align: center;
 }
 .todo_status.todo {
   background-color: #f0ad4e;
