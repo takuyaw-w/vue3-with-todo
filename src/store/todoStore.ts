@@ -36,7 +36,7 @@ function addTodo(params: AddParams) {
   const newTodo = {
     id: todoState.todos.length + 1,
     ...params,
-    status: 'todo'
+    status: 'Todo'
   } as Todo
   todoState.todos.push(newTodo)
 }
