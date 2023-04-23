@@ -13,6 +13,13 @@ if (!todoStore) {
 const toLowerFirst = (str: string) => {
   return str.charAt(0).toLowerCase() + str.slice(1)
 }
+
+function deleteTodo(id: number) {
+  const result = confirm('削除しますか？')
+  if (result) {
+    todoStore?.removeTodo(id)
+  }
+}
 </script>
 
 <template>
@@ -34,7 +41,8 @@ const toLowerFirst = (str: string) => {
           <p>{{ todo.description }}</p>
         </div>
         <div class="todo_action">
-          <router-link :to="`/todo/edit/${todo.id}`">編集する</router-link>
+          <router-link class="btn btn--edit" :to="`/todo/edit/${todo.id}`">編集する</router-link>
+          <button class="btn btn--delete" @click="deleteTodo(todo.id)">削除する</button>
         </div>
       </div>
     </li>
@@ -101,6 +109,24 @@ nav > ul {
 .todo_action {
   padding: 0.2rem 1rem;
   border-top: #ccc 1px solid;
-  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn {
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  text-decoration: none;
+}
+.btn.btn--edit {
+  margin-right: 10px;
+  background-color: #5b7ede;
+  color: #fff;
+}
+.btn.btn--delete {
+  background-color: #d9534f;
+  color: #fff;
 }
 </style>
