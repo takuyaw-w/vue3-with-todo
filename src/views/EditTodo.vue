@@ -1,28 +1,8 @@
 <script setup lang="ts">
-import { todoStoreKey } from '@/store/todoStore'
-import { inject, reactive } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-
-const todoStore = inject(todoStoreKey)
-if (todoStore === undefined) {
-  throw new Error('todoStoreKey is not provided')
-}
-
+import { useRoute } from 'vue-router'
+import useEditTodo from '@/composables/useEditTodo'
 const route = useRoute()
-const router = useRouter()
-const id = Number(route.params.id)
-const _todo = todoStore.getTodo(id)
-const todo = reactive({
-  id: _todo.id,
-  title: _todo.title,
-  description: _todo.description,
-  status: _todo.status
-})
-
-const onSubmit = () => {
-  todoStore.updateTodo(id, todo)
-  router.push('/')
-}
+const { todo, onSubmit } = useEditTodo(Number(route.params.id))
 </script>
 
 <template>
