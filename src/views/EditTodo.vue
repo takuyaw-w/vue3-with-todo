@@ -1,28 +1,8 @@
 <script setup lang="ts">
-import { todoStoreKey } from '@/store/todoStore'
-import { inject, reactive } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-
-const todoStore = inject(todoStoreKey)
-if (todoStore === undefined) {
-  throw new Error('todoStoreKey is not provided')
-}
-
+import { useRoute } from 'vue-router'
+import useEditTodo from '@/composables/useEditTodo'
 const route = useRoute()
-const router = useRouter()
-const id = Number(route.params.id)
-const _todo = todoStore.getTodo(id)
-const todo = reactive({
-  id: _todo.id,
-  title: _todo.title,
-  description: _todo.description,
-  status: _todo.status
-})
-
-const onSubmit = () => {
-  todoStore.updateTodo(id, todo)
-  router.push('/')
-}
+const { title, description, status, errors, onSubmit } = useEditTodo(Number(route.params.id))
 </script>
 
 <template>
@@ -36,15 +16,17 @@ const onSubmit = () => {
   <form @submit.prevent="onSubmit">
     <div class="input-box">
       <label for="title">Title</label>
-      <input type="text" id="title" v-model="todo.title" />
+      <input type="text" id="title" v-model="title" />
+      <span class="error" v-if="errors.title">{{ errors.title }}</span>
     </div>
     <div class="input-box">
       <label for="description">Description</label>
-      <textarea id="description" v-model="todo.description" rows="5"></textarea>
+      <textarea id="description" v-model="description" rows="5"></textarea>
+      <span class="error" v-if="errors.description">{{ errors.description }}</span>
     </div>
     <div class="input-box">
       <label for="status">status</label>
-      <select v-model="todo.status">
+      <select v-model="status">
         <option value="Todo">Todo</option>
         <option value="Doing">Doing</option>
         <option value="Done">Done</option>
