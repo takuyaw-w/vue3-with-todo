@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { todoStoreKey } from '@/store/todoStore'
 import { inject, reactive } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 const todoStore = inject(todoStoreKey)
 if (todoStore === undefined) {
@@ -9,13 +9,20 @@ if (todoStore === undefined) {
 }
 
 const route = useRoute()
+const router = useRouter()
 const id = Number(route.params.id)
 const _todo = todoStore.getTodo(id)
 const todo = reactive({
+  id: _todo.id,
   title: _todo.title,
   description: _todo.description,
   status: _todo.status
 })
+
+const onSubmit = () => {
+  todoStore.updateTodo(id, todo)
+  router.push('/')
+}
 </script>
 
 <template>
@@ -26,7 +33,7 @@ const todo = reactive({
       </li>
     </ul>
   </nav>
-  <form @submit.prevent="">
+  <form @submit.prevent="onSubmit">
     <div class="input-box">
       <label for="title">Title</label>
       <input type="text" id="title" v-model="todo.title" />
