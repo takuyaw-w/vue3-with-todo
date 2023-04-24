@@ -1,40 +1,7 @@
 <script setup lang="ts">
-import { todoStoreKey } from '@/store/todoStore'
-import { inject } from 'vue'
-import { useRouter } from 'vue-router'
-import { useField, useForm } from 'vee-validate'
-import { toTypedSchema } from '@vee-validate/zod'
-import * as z from 'zod'
+import useCreateTodo from '@/composables/useCreateTodo'
 
-const router = useRouter()
-const validationSchema = toTypedSchema(
-  z.object({
-    title: z.string().nonempty({ message: '必須入力です。' }),
-    description: z.string().nonempty({ message: '必須入力です。' })
-  })
-)
-const { handleSubmit, errors } = useForm({
-  validationSchema,
-  initialValues: {
-    title: '',
-    description: ''
-  }
-})
-const { value: title } = useField<string>('title')
-const { value: description } = useField<string>('description')
-
-const todoStore = inject(todoStoreKey)
-if (todoStore === undefined) {
-  throw new Error('todoStoreKey is not provided')
-}
-
-const onSubmit = handleSubmit((values) => {
-  todoStore.addTodo({
-    title: values.title,
-    description: values.description
-  })
-  router.push('/')
-})
+const { title, description, errors, onSubmit } = useCreateTodo()
 </script>
 
 <template>

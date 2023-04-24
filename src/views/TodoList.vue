@@ -1,25 +1,7 @@
 <script setup lang="ts">
-import { inject } from 'vue'
-import { todoStoreKey } from '@/store/todoStore'
-
-const todoStore = inject(todoStoreKey)
-if (!todoStore) {
-  throw new Error('todoStoreKey is not provided')
-}
-
-/**
- * 頭文字を小文字に変換する
- */
-const toLowerFirst = (str: string) => {
-  return str.charAt(0).toLowerCase() + str.slice(1)
-}
-
-function deleteTodo(id: number) {
-  const result = confirm('削除しますか？')
-  if (result) {
-    todoStore?.removeTodo(id)
-  }
-}
+import useTodoView from '@/composables/useTodoView'
+import { toLowerFirst } from '@/util/stringsHelper'
+const { state, deleteTodo } = useTodoView()
 </script>
 
 <template>
@@ -30,8 +12,8 @@ function deleteTodo(id: number) {
       </li>
     </ul>
   </nav>
-  <ul v-if="todoStore.state.todos.length !== 0">
-    <li class="todos" v-for="todo in todoStore.state.todos" :key="todo.id">
+  <ul v-if="state.todos.length !== 0">
+    <li class="todos" v-for="todo in state.todos" :key="todo.id">
       <div class="todo_item">
         <div class="todo_title">
           <h2>{{ todo.title }}</h2>
@@ -65,6 +47,10 @@ nav > ul {
 }
 .todos {
   margin-bottom: 1rem;
+}
+.todos:has(.done) .todo_title h2,
+.todos:has(.done) .todo_content {
+  text-decoration: line-through;
 }
 .todo_item {
   border: 1px solid #ccc;
