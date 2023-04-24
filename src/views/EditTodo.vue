@@ -2,7 +2,7 @@
 import { useRoute } from 'vue-router'
 import useEditTodo from '@/composables/useEditTodo'
 const route = useRoute()
-const { todo, onSubmit } = useEditTodo(Number(route.params.id))
+const { title, description, status, errors, onSubmit } = useEditTodo(Number(route.params.id))
 </script>
 
 <template>
@@ -16,15 +16,17 @@ const { todo, onSubmit } = useEditTodo(Number(route.params.id))
   <form @submit.prevent="onSubmit">
     <div class="input-box">
       <label for="title">Title</label>
-      <input type="text" id="title" v-model="todo.title" />
+      <input type="text" id="title" v-model="title" />
+      <span class="error" v-if="errors.title">{{ errors.title }}</span>
     </div>
     <div class="input-box">
       <label for="description">Description</label>
-      <textarea id="description" v-model="todo.description" rows="5"></textarea>
+      <textarea id="description" v-model="description" rows="5"></textarea>
+      <span class="error" v-if="errors.description">{{ errors.description }}</span>
     </div>
     <div class="input-box">
       <label for="status">status</label>
-      <select v-model="todo.status">
+      <select v-model="status">
         <option value="Todo">Todo</option>
         <option value="Doing">Doing</option>
         <option value="Done">Done</option>
