@@ -1,3 +1,3 @@
 import NAddInputForm from './NAddInputForm.vue'
-
-export default { NAddInputForm }
+import NTodoItems from './NTodoItems.vue'
+export default { NAddInputForm, NTodoItems }

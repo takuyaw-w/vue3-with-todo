@@ -13,8 +13,10 @@ export default function useTodoView() {
       todoStore.removeTodo(id)
     }
   }
+
   return {
     state: todoStore.state,
-    deleteTodo
+    deleteTodo,
+    fetchTodos: todoStore.fetchTodos
   }
 }
