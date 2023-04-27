@@ -24,6 +24,14 @@ const todoState = reactive<TodoState>({
   ]
 })
 
+function fetchTodos() {
+  return new Promise<TodoState>((resolve) => {
+    setTimeout(() => {
+      resolve(todoState)
+    }, 1000)
+  })
+}
+
 function getTodo(id: number): Todo {
   const todo = todoState.todos.find((todo) => todo.id === id)
   if (!todo) {
@@ -53,6 +61,7 @@ function updateTodo(id: number, todo: Todo) {
 
 const todoStore: TodoStore = {
   state: readonly(todoState),
+  fetchTodos,
   getTodo,
   addTodo,
   removeTodo,
