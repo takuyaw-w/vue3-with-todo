@@ -1,27 +1,15 @@
 <script setup lang="ts">
+import NTodoItem from './NTodoItem.vue'
 import useTodoView from '@/composables/useTodoView'
-import { toLowerFirst } from '@/util/stringsHelper'
-const { deleteTodo, fetchTodos } = useTodoView()
+const { fetchTodos } = useTodoView()
 
 const state = await fetchTodos()
 </script>
 
 <template>
-  <ul v-if="state.todos.length !== 0">
-    <li class="todos" v-for="todo in state.todos" :key="todo.id">
-      <div class="todo_item">
-        <div class="todo_title">
-          <h2>{{ todo.title }}</h2>
-          <span :class="`todo_status ${toLowerFirst(todo.status)}`">{{ todo.status }}</span>
-        </div>
-        <div class="todo_content">
-          <p>{{ todo.description }}</p>
-        </div>
-        <div class="todo_action">
-          <router-link class="btn btn--edit" :to="`/todo/edit/${todo.id}`">編集する</router-link>
-          <button class="btn btn--delete" @click="deleteTodo(todo.id)">削除する</button>
-        </div>
-      </div>
+  <ul class="n-todo-items" v-if="state.todos.length !== 0">
+    <li v-for="todo in state.todos" :key="todo.id">
+      <n-todo-item v-bind="todo" />
     </li>
   </ul>
   <div v-else>
@@ -30,74 +18,9 @@ const state = await fetchTodos()
 </template>
 
 <style scoped>
-.todos {
-  margin-bottom: 1rem;
-}
-.todos:has(.done) .todo_title h2,
-.todos:has(.done) .todo_content {
-  text-decoration: line-through;
-}
-.todo_item {
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-.todo_title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 1.5rem;
-  padding: 1rem;
-  margin-bottom: 10px;
-  border-bottom: #ccc 1px solid;
-}
-.todo_title > h2 {
-  max-width: 800px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.todo_status {
-  background-color: #ccc;
-  padding: 0.4rem 0.6rem;
-  border-radius: 5px;
-  min-width: 80px;
-  text-align: center;
-}
-.todo_status.todo {
-  background-color: #f0ad4e;
-}
-.todo_status.doing {
-  background-color: #5bc0de;
-}
-.todo_status.done {
-  background-color: #5cb85c;
-}
-.todo_content {
-  padding: 0 1rem;
-  margin-bottom: 10px;
-  white-space: pre-wrap;
-}
-.todo_action {
-  padding: 0.2rem 1rem;
-  border-top: #ccc 1px solid;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.btn {
-  padding: 5px 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  background-color: #fff;
-  text-decoration: none;
-}
-.btn.btn--edit {
-  margin-right: 10px;
-  background-color: #5b7ede;
-  color: #fff;
-}
-.btn.btn--delete {
-  background-color: #d9534f;
-  color: #fff;
+.n-todo-items {
+  list-style-type: none;
+  display: grid;
+  gap: 1rem;
 }
 </style>

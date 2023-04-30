@@ -13,7 +13,7 @@ const { title, description, errors, onSubmit } = useCreateTodo()
       <n-textarea label="Description" v-model="description" :error="errors.description" rows="7" />
     </div>
     <div class="row">
-      <n-btn type="submit">Todoを追加する</n-btn>
+      <n-btn color="#2196f3" type="submit">Todoを追加する</n-btn>
     </div>
   </form>
 </template>
