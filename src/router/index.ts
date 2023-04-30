@@ -3,7 +3,6 @@ import TodoList from '@/views/TodoList.vue'
 import CreateTodo from '@/views/CreateTodo.vue'
 import EditTodo from '@/views/EditTodo.vue'
 import NotFoundError from '@/views/Errors/NotFoundError.vue'
-import NotFoundTodo from '@/views/Errors/NotFoundTodo.vue'
 
 const routes: RouteRecordRaw[] = [
   {
