@@ -45,6 +45,8 @@ const { deleteTodo, editTodo, getColor } = useTodoView()
 }
 .n-todo-item--description {
   padding: 1rem;
+  white-space: pre-wrap;
+  word-break: break-all;
 }
 .n-todo-item--actions {
   border-top: 1px solid #ccc;
