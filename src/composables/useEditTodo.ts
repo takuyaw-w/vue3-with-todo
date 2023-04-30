@@ -39,11 +39,27 @@ export default function useEditTodo(id: number) {
     router.push('/')
   })
 
+  const options = [
+    {
+      label: 'Todo',
+      value: 'Todo'
+    },
+    {
+      label: 'Doing',
+      value: 'Doing'
+    },
+    {
+      label: 'Done',
+      value: 'Done'
+    }
+  ]
+
   return {
     title,
     description,
     status,
     errors,
+    options,
     onSubmit
   }
 }
