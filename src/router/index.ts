@@ -2,6 +2,7 @@ import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 import TodoList from '@/views/TodoList.vue'
 import CreateTodo from '@/views/CreateTodo.vue'
 import EditTodo from '@/views/EditTodo.vue'
+import NotFoundError from '@/views/Errors/NotFoundError.vue'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -18,6 +19,11 @@ const routes: RouteRecordRaw[] = [
     path: '/todo/edit/:id',
     name: 'EditTodo',
     component: EditTodo
+  },
+  {
+    path: '/:catchAll(.*)',
+    name: 'NotFoundError',
+    component: NotFoundError
   }
 ]
 

@@ -5,6 +5,10 @@ import todoStore, { todoStoreKey } from '@/store/todoStore'
 import './assets/main.css'
 import atomsComponents from '@/components/atoms'
 import orgnismsComponents from '@/components/orgnisms'
+const components = {
+  ...atomsComponents,
+  ...orgnismsComponents
+}
 
 const app = createApp({
   ...App,
@@ -13,10 +17,7 @@ const app = createApp({
   }
 })
 
-for (const [name, component] of Object.entries(atomsComponents)) {
-  app.component(name, component)
-}
-for (const [name, component] of Object.entries(orgnismsComponents)) {
+for (const [name, component] of Object.entries(components)) {
   app.component(name, component)
 }
 
