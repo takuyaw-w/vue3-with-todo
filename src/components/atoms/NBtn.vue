@@ -3,10 +3,12 @@ import { computed, type ButtonHTMLAttributes } from 'vue'
 
 interface Props extends ButtonHTMLAttributes {
   disabled?: boolean | 'true' | 'false'
+  color: `#${string}`
 }
 const props = withDefaults(defineProps<Props>(), {
   type: 'button',
-  disabled: false
+  disabled: false,
+  color: '#ccc'
 })
 
 const isDisabled = computed(() => {
@@ -15,7 +17,7 @@ const isDisabled = computed(() => {
 </script>
 
 <template>
-  <button :class="['n-btn', { 'n-btn--disabled': isDisabled }]" v-bind="props">
+  <button :class="['n-btn', 'n-btn-color', { 'n-btn--disabled': isDisabled }]" v-bind="props">
     <slot />
   </button>
 </template>
@@ -25,7 +27,6 @@ const isDisabled = computed(() => {
   padding: 0.5em 1em;
   border-radius: 4px;
   border: none;
-  background-color: #2196f3;
   color: #fff;
   font-size: 16px;
   cursor: pointer;
@@ -36,5 +37,8 @@ const isDisabled = computed(() => {
   background-color: #ccc;
   color: #fff;
   cursor: not-allowed;
+}
+.n-btn-color {
+  background-color: v-bind('props.color');
 }
 </style>
