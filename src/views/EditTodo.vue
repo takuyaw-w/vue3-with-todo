@@ -6,13 +6,7 @@ const { title, description, status, errors, onSubmit } = useEditTodo(Number(rout
 </script>
 
 <template>
-  <nav>
-    <ul>
-      <li>
-        <router-link to="/">戻る</router-link>
-      </li>
-    </ul>
-  </nav>
+  <n-nav to="/" label="戻る" />
   <form @submit.prevent="onSubmit">
     <div class="input-box">
       <label for="title">Title</label>
@@ -39,15 +33,6 @@ const { title, description, status, errors, onSubmit } = useEditTodo(Number(rout
 </template>
 
 <style scoped>
-ul {
-  list-style: none;
-}
-
-nav > ul {
-  display: flex;
-  justify-content: flex-start;
-  margin-bottom: 1rem;
-}
 input,
 button,
 textarea,
