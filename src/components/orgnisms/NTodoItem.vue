@@ -43,6 +43,12 @@ const { deleteTodo, editTodo, getColor } = useTodoView()
   justify-content: space-between;
   align-items: center;
 }
+.n-todo-item--title > h2 {
+  max-width: 800px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .n-todo-item--description {
   padding: 1rem;
   white-space: pre-wrap;
