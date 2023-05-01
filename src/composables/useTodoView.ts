@@ -2,7 +2,7 @@ import { inject } from 'vue'
 import { todoStoreKey } from '@/store/todoStore'
 import type { Status } from '@/store/types/todo'
 import { useRouter } from 'vue-router'
-import { toLowerFirst } from '@/util/stringsHelper'
+
 export default function useTodoView() {
   const todoStore = inject(todoStoreKey)
   if (!todoStore) {
@@ -35,7 +35,6 @@ export default function useTodoView() {
   }
 
   return {
-    state: todoStore.state,
     deleteTodo,
     editTodo,
     getColor,
