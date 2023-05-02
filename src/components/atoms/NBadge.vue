@@ -24,6 +24,7 @@ const props = withDefaults(defineProps<Props>(), {
   white-space: nowrap;
   border-radius: 5px;
   min-width: 120px;
+  color: #fff;
 }
 .n-badge-color {
   background-color: v-bind('props.color');
